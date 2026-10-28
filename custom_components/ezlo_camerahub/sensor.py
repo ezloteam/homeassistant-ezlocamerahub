@@ -122,6 +122,31 @@ MOTION_SENSORS: tuple[CameraSensorDescription, ...] = (
     ),
 )
 
+# Only for cameras whose engine counts finalized recordings (clips_done).
+# The "clips_uploaded" key above is the segment counter, so these use their
+# own keys.
+CLIP_SENSORS: tuple[CameraSensorDescription, ...] = (
+    CameraSensorDescription(
+        key="clips_done",
+        translation_key="clips_done",
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        value_fn=lambda camera: camera.clips_done,
+    ),
+    CameraSensorDescription(
+        key="clips_failed",
+        translation_key="clips_failed",
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        value_fn=lambda camera: camera.clips_failed,
+    ),
+    CameraSensorDescription(
+        key="last_clip",
+        translation_key="last_clip",
+        device_class=SensorDeviceClass.TIMESTAMP,
+        value_fn=lambda camera: _timestamp(camera.last_clip_ts),
+    ),
+)
+
 HUB_SENSORS: tuple[HubSensorDescription, ...] = (
     HubSensorDescription(
         key="uploads_done",
@@ -171,6 +196,15 @@ async def async_setup_entry(
             for description in MOTION_SENSORS
         ],
         include=lambda camera: camera.motion_supported,
+    )
+    async_add_camera_entities(
+        coordinator,
+        async_add_entities,
+        lambda coord, subentry_id: [
+            CameraSensor(coord, subentry_id, description)
+            for description in CLIP_SENSORS
+        ],
+        include=lambda camera: camera.clip_counters_supported,
     )
 
 

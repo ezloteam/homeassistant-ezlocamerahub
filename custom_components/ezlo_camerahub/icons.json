@@ -34,6 +34,15 @@
           "recording": "mdi:record-circle-outline"
         }
       },
+      "clips_done": {
+        "default": "mdi:filmstrip-box-multiple"
+      },
+      "clips_failed": {
+        "default": "mdi:filmstrip-off"
+      },
+      "last_clip": {
+        "default": "mdi:filmstrip"
+      },
       "clips_uploaded": {
         "default": "mdi:cloud-upload-outline"
       },

@@ -72,6 +72,15 @@
       "clips_uploaded": {
         "name": "Segments uploaded"
       },
+      "clips_done": {
+        "name": "Clips uploaded"
+      },
+      "clips_failed": {
+        "name": "Clips failed"
+      },
+      "last_clip": {
+        "name": "Last clip"
+      },
       "upload_errors": {
         "name": "Upload errors"
       },

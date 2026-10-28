@@ -103,3 +103,29 @@ async def test_last_motion_sensor_only_with_motion_support(
         == "2025-10-27T15:55:00+00:00"
     )
     assert hass.states.get("sensor.driveway_last_motion").state == STATE_UNKNOWN
+
+
+async def test_clip_sensors_only_with_clip_counters(
+    hass: HomeAssistant, setup_integration: MockConfigEntry, mock_engine
+) -> None:
+    assert hass.states.get("sensor.front_door_clips_uploaded") is None
+    status = load_fixture("status.json")
+    status["uploads"]["per_camera"]["cam_front"].update(
+        clips_done=3, clips_failed=1, last_clip_ts=1761580440
+    )
+    status["uploads"]["per_camera"]["cam_drive"].update(
+        clips_done=0, clips_failed=0, last_clip_ts=0
+    )
+    mock_engine(status=status)
+    await setup_integration.runtime_data.async_refresh()
+    await hass.async_block_till_done()
+    assert hass.states.get("sensor.front_door_clips_uploaded").state == "3"
+    assert hass.states.get("sensor.front_door_clips_failed").state == "1"
+    assert (
+        hass.states.get("sensor.front_door_last_clip").state
+        == "2025-10-27T15:54:00+00:00"
+    )
+    # The segment counter is unchanged next to it.
+    assert hass.states.get("sensor.front_door_segments_uploaded").state == "40"
+    assert hass.states.get("sensor.driveway_clips_uploaded").state == "0"
+    assert hass.states.get("sensor.driveway_last_clip").state == STATE_UNKNOWN

@@ -38,9 +38,14 @@ class CameraState:
 class CameraUploads:
     """Per-camera upload counters from /status."""
 
+    # clips_ok counts uploaded HLS segments (~4 s each), not clips.
     clips_ok: int
     errors: int
     last_upload_ts: int
+    # One per finalized recording; None when the engine predates them.
+    clips_done: int | None
+    clips_failed: int | None
+    last_clip_ts: int | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -104,6 +109,9 @@ class Camera:
     upload_errors: int
     last_upload_ts: int | None
     last_clip_source: str | None
+    clips_done: int | None
+    clips_failed: int | None
+    last_clip_ts: int | None
     motion_active: bool | None
     last_motion_ts: int | None
 
@@ -111,6 +119,11 @@ class Camera:
     def motion_supported(self) -> bool:
         """Whether the engine reports this camera's real-time motion state."""
         return self.motion_active is not None
+
+    @property
+    def clip_counters_supported(self) -> bool:
+        """Whether the engine counts finalized recordings for this camera."""
+        return self.clips_done is not None
 
     @property
     def recording_now(self) -> bool:
@@ -145,6 +158,10 @@ def _int(value: Any) -> int:
     return value if isinstance(value, int) and not isinstance(value, bool) else 0
 
 
+def _opt_int(value: Any) -> int | None:
+    return value if isinstance(value, int) and not isinstance(value, bool) else None
+
+
 def _str(value: Any) -> str | None:
     return value if isinstance(value, str) else None
 
@@ -170,6 +187,9 @@ def _parse_camera_uploads(raw: Mapping[str, Any]) -> CameraUploads:
         clips_ok=_int(raw.get("clips_ok")),
         errors=_int(raw.get("errors")),
         last_upload_ts=_int(raw.get("last_upload_ts")),
+        clips_done=_opt_int(raw.get("clips_done")),
+        clips_failed=_opt_int(raw.get("clips_failed")),
+        last_clip_ts=_opt_int(raw.get("last_clip_ts")),
     )
 
 
@@ -289,6 +309,9 @@ def build_hub_data(
             upload_errors=counters.errors if counters else 0,
             last_upload_ts=(counters.last_upload_ts or None) if counters else None,
             last_clip_source=_last_clip_source(uploads, config.id),
+            clips_done=counters.clips_done if counters else None,
+            clips_failed=counters.clips_failed if counters else None,
+            last_clip_ts=(counters.last_clip_ts or None) if counters else None,
             motion_active=live.motion_active if live else None,
             last_motion_ts=live.last_motion_ts if live else None,
         )

@@ -54,6 +54,7 @@ Per camera (one device per camera, linked to the hub device):
 | `sensor` Recording mode | `continuous` / `motion`. |
 | `sensor` Status | `offline` (RTSP ingest down) / `online` / `recording` (continuous mode with live ingest; a motion-mode camera is `online`) / `armed` (motion mode, waiting for motion: the engine opens the stream only on motion, and the camera's ONVIF event service answers). |
 | `sensor` Segments uploaded, Upload errors, Last upload | Per-camera counters from `/status` `uploads.per_camera`. The engine uploads each recording as HLS segments of about 4 s and counts every segment (`clips_ok`), so a 60 s clip adds about 15. |
+| `sensor` Clips uploaded, Clips failed, Last clip | One per finalized recording (`clips_done`, `clips_failed`, `last_clip_ts` in `uploads.per_camera`): about one a minute in continuous mode, one per motion event in motion mode. A clip counts as uploaded when at least one of its segments uploaded. Only on engines that report `clips_done`; they appear without a reload after an engine upgrade. |
 | `sensor` Last clip source | `motion` / `continuous` of the newest clip in `/uploads`. That ring is global and bounded (ha-camerasd #33), so a busy continuous camera can push a motion camera's clips out; Segments uploaded is the authoritative counter. |
 
 Hub device: Cloud connection (NMA), Uploads done / pending / failed.
