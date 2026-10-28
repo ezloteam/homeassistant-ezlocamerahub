@@ -35,10 +35,10 @@ _LOGGER = logging.getLogger(__name__)
 ENGINE_BASE_URL: Final[str | None] = (
     "https://dl.mios.com/linux_firmware/build/custom_packages/ha-camerasd/standalone"
 )
-ENGINE_VERSION: Final[str | None] = "v0.3.1"
+ENGINE_VERSION: Final[str | None] = "v0.3.2"
 ENGINE_SHA256: Final[dict[str, str]] = {
-    "amd64": "a61a20affc49efc650fcd9daed501f85f874c23539b0673dae4b7a0b47c1214d",
-    "arm64": "c21dd6cfc4eb59dc1cd015b62d6831ba9e51b18696eb5053440472331d09795a",
+    "amd64": "5a16d0863e74ad2f89df10f1486bd9a2418ada2bc43629ae58f13a6bdf90ff6d",
+    "arm64": "649207d9588cc14906c71d2f1e2129ba0675e6468cd038cad5089ca783176f0b",
 }
 
 OVERRIDE_ENV: Final = "EZLO_CAMERAHUB_ENGINE_BINARY"
