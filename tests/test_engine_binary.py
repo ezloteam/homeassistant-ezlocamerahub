@@ -105,6 +105,20 @@ async def test_download_reads_the_whole_body(
     assert path.read_bytes() == data
 
 
+async def test_upgrade_removes_older_engine_binaries(
+    hass: HomeAssistant, aioclient_mock: AiohttpClientMocker, tmp_path: Path
+) -> None:
+    old = tmp_path / "ha-camerasd-1.2.2-amd64"
+    old.write_bytes(b"previous engine")
+    other = tmp_path / "notes.txt"
+    other.write_text("kept")
+    aioclient_mock.get(URL, content=DATA)
+    path = await EngineBinary(hass, tmp_path, _pin()).async_ensure()
+    assert path.read_bytes() == DATA
+    assert not old.exists()
+    assert other.exists()
+
+
 async def test_tampered_binary_is_replaced(
     hass: HomeAssistant, aioclient_mock: AiohttpClientMocker, tmp_path: Path
 ) -> None:

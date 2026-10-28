@@ -35,10 +35,10 @@ _LOGGER = logging.getLogger(__name__)
 ENGINE_BASE_URL: Final[str | None] = (
     "https://dl.mios.com/linux_firmware/build/custom_packages/ha-camerasd/standalone"
 )
-ENGINE_VERSION: Final[str | None] = "v0.3.0"
+ENGINE_VERSION: Final[str | None] = "v0.3.1"
 ENGINE_SHA256: Final[dict[str, str]] = {
-    "amd64": "946c879a2caf66f8be434d4efd840bf9e9e4a81e9f2b5322ba72c0b8fa18322c",
-    "arm64": "897b5e78f07dc11811d26af05656c3f8b476f1fe845aff2359daeff1b0839984",
+    "amd64": "a61a20affc49efc650fcd9daed501f85f874c23539b0673dae4b7a0b47c1214d",
+    "arm64": "c21dd6cfc4eb59dc1cd015b62d6831ba9e51b18696eb5053440472331d09795a",
 }
 
 OVERRIDE_ENV: Final = "EZLO_CAMERAHUB_ENGINE_BINARY"
@@ -184,3 +184,7 @@ def _install(path: Path, data: bytes) -> None:
     tmp.write_bytes(data)
     tmp.chmod(0o755)
     tmp.replace(path)
+    # Engines of earlier pins are never run again.
+    for old in path.parent.glob("ha-camerasd-*"):
+        if old != path:
+            old.unlink(missing_ok=True)
