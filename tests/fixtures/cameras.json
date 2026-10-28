@@ -1,0 +1,8 @@
+{
+  "cameras": [
+    {"id": "cam_front", "name": "Front Door", "rtsp_url": "rtsp://admin:s3cr%40t@10.0.9.64:554/Preview_01_sub",
+     "subcategory": "ip_camera", "mode": "motion", "transport": "tcp"},
+    {"id": "cam_drive", "name": "Driveway", "rtsp_url": "rtsp://10.0.9.65:554/Preview_01_main",
+     "subcategory": "ip_camera", "mode": "continuous", "transport": "auto"}
+  ]
+}

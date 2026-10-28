@@ -1,0 +1,11 @@
+{
+  "items": [
+    {"id": 103, "ts": 1761580500, "camera_id": "cam_front", "camera_name": "Front Door", "kind": "clip",
+     "source": "motion", "state": "done", "bytes": 123456, "storage_uuid": "u-103"},
+    {"id": 102, "ts": 1761580400, "camera_id": "cam_drive", "camera_name": "Driveway", "kind": "clip",
+     "source": "continuous", "state": "failed", "bytes": 0, "error": "timeout"},
+    {"id": 101, "ts": 1761580300, "camera_id": "cam_front", "camera_name": "Front Door", "kind": "clip",
+     "source": "continuous", "state": "done", "bytes": 99999}
+  ],
+  "done": 42, "pending": 1, "failed": 2
+}

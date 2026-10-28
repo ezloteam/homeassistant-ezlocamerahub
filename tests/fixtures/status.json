@@ -1,0 +1,24 @@
+{
+  "provisioned": true,
+  "last_error": null,
+  "hub": {"serial": "105299999", "uuid": "8f6c1c1e-0000-4000-8000-000000000001", "mac_address": "aa:bb:cc:dd:ee:ff"},
+  "account": {"user_id": "resident999", "oem_id": 501, "signed_in": true},
+  "nma": {"connected": true, "registered": true, "server": "nma.example", "connected_since": 1761580000},
+  "storage_token": {"valid": true, "valid_until": 1761590000, "xapp": "x"},
+  "capabilities": {"motion": true, "token_wallet": true},
+  "uploads": {
+    "done": 42, "pending": 1, "failed": 2, "lastError": null, "current_upload": null,
+    "per_camera": {
+      "cam_front": {"clips_ok": 40, "errors": 2, "last_upload_ts": 1761580500},
+      "cam_drive": {"clips_ok": 2, "errors": 0, "last_upload_ts": 0}
+    }
+  },
+  "cameras": {
+    "cam_front": {"device_id": "d1", "subcategory": "ip_camera", "mode": "motion", "recording": true,
+                  "rtsp_ok": true, "transport": "tcp", "motion_capable": true, "codec": "h264",
+                  "last_rtp_ts": 1761580600},
+    "cam_drive": {"device_id": "d2", "subcategory": "ip_camera", "mode": "continuous", "recording": true,
+                  "rtsp_ok": false, "transport": "auto", "motion_capable": false, "codec": "h265",
+                  "last_rtp_ts": 0}
+  }
+}

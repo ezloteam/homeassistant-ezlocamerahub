@@ -1,0 +1,17 @@
+{
+  "domain": "ezlo_camerahub",
+  "name": "Ezlo Camera Hub",
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": [
+    "ffmpeg",
+    "stream"
+  ],
+  "documentation": "https://github.com/ezloteam/homeassistant-ezlocamerahub",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/ezloteam/homeassistant-ezlocamerahub/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "0.3.0"
+}

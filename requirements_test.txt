@@ -1,0 +1,9 @@
+# Test dependencies. pytest-homeassistant-custom-component pins an exact
+# Home Assistant; the rest are requirements of the camera, ffmpeg and stream
+# components this integration depends on.
+pytest-homeassistant-custom-component
+pytest-cov
+PyTurboJPEG==1.8.3
+ha-ffmpeg==3.2.2
+av==19.0.0
+numpy==2.3.2

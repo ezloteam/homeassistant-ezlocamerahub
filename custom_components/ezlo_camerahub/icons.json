@@ -1,0 +1,67 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "cloud_connection": {
+        "default": "mdi:cloud-off-outline",
+        "state": {
+          "on": "mdi:cloud-check-outline"
+        }
+      }
+    },
+    "select": {
+      "recording_mode": {
+        "default": "mdi:record-rec",
+        "state": {
+          "continuous": "mdi:record-rec",
+          "motion": "mdi:motion-sensor"
+        }
+      }
+    },
+    "sensor": {
+      "recording_mode": {
+        "default": "mdi:record-rec",
+        "state": {
+          "continuous": "mdi:record-rec",
+          "motion": "mdi:motion-sensor"
+        }
+      },
+      "status": {
+        "default": "mdi:cctv",
+        "state": {
+          "armed": "mdi:motion-sensor",
+          "offline": "mdi:cctv-off",
+          "online": "mdi:cctv",
+          "recording": "mdi:record-circle-outline"
+        }
+      },
+      "clips_uploaded": {
+        "default": "mdi:cloud-upload-outline"
+      },
+      "upload_errors": {
+        "default": "mdi:cloud-alert-outline"
+      },
+      "last_upload": {
+        "default": "mdi:cloud-clock-outline"
+      },
+      "last_clip_source": {
+        "default": "mdi:filmstrip",
+        "state": {
+          "continuous": "mdi:record-rec",
+          "motion": "mdi:motion-sensor"
+        }
+      },
+      "uploads_done": {
+        "default": "mdi:cloud-check-outline"
+      },
+      "uploads_pending": {
+        "default": "mdi:cloud-sync-outline"
+      },
+      "uploads_failed": {
+        "default": "mdi:cloud-alert-outline"
+      },
+      "last_motion": {
+        "default": "mdi:motion-sensor"
+      }
+    }
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up the Ezlo Camera Hub",
+        "description": "Home Assistant runs a Camera Hub engine and registers it with your Ezlo account.",
+        "data": {
+          "username": "Ezlo username",
+          "password": "Ezlo password"
+        },
+        "data_description": {
+          "username": "The Ezlo account the Camera Hub is registered to. Recordings upload to this account.",
+          "password": "Used once to register the Camera Hub with Ezlo, then discarded."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Sign in to Ezlo again",
+        "description": "The Camera Hub needs your Ezlo password to register with Ezlo.",
+        "data": {
+          "username": "Ezlo username",
+          "password": "Ezlo password"
+        },
+        "data_description": {
+          "username": "The Ezlo account the Camera Hub is registered to. Recordings upload to this account.",
+          "password": "Used once to register the Camera Hub with Ezlo, then discarded."
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Ezlo rejected that username or password.",
+      "cannot_connect": "Could not reach the Ezlo cloud.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "single_instance_allowed": "The Ezlo Camera Hub is already set up.",
+      "reauth_successful": "Signed in again.",
+      "unsupported_platform": "The Camera Hub engine has no build for this system (it needs 64-bit Linux on x86_64 or ARM)."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "cloud_connection": {
+        "name": "Cloud connection"
+      }
+    },
+    "select": {
+      "recording_mode": {
+        "name": "Recording mode",
+        "state": {
+          "continuous": "Continuous",
+          "motion": "Motion"
+        }
+      }
+    },
+    "sensor": {
+      "recording_mode": {
+        "name": "Recording mode",
+        "state": {
+          "continuous": "Continuous",
+          "motion": "Motion"
+        }
+      },
+      "status": {
+        "name": "Status",
+        "state": {
+          "armed": "Waiting for motion",
+          "offline": "Offline",
+          "online": "Online",
+          "recording": "Recording"
+        }
+      },
+      "clips_uploaded": {
+        "name": "Segments uploaded"
+      },
+      "upload_errors": {
+        "name": "Upload errors"
+      },
+      "last_upload": {
+        "name": "Last upload"
+      },
+      "last_clip_source": {
+        "name": "Last clip source",
+        "state": {
+          "continuous": "Continuous",
+          "motion": "Motion"
+        }
+      },
+      "uploads_done": {
+        "name": "Uploads done"
+      },
+      "uploads_pending": {
+        "name": "Uploads pending"
+      },
+      "uploads_failed": {
+        "name": "Uploads failed"
+      },
+      "last_motion": {
+        "name": "Last motion"
+      }
+    }
+  },
+  "exceptions": {
+    "motion_not_supported": {
+      "message": "{camera} does not support motion recording."
+    },
+    "set_mode_failed": {
+      "message": "Could not change the recording mode of {camera}: {error}"
+    },
+    "snapshot_failed": {
+      "message": "Could not get a snapshot from {camera}."
+    },
+    "engine_unavailable": {
+      "message": "The Camera Hub engine can't run here: {error}"
+    }
+  },
+  "config_subentries": {
+    "camera": {
+      "initiate_flow": {
+        "user": "Add camera"
+      },
+      "entry_type": "Camera",
+      "step": {
+        "user": {
+          "title": "Add a camera",
+          "data": {
+            "name": "Name",
+            "stream_url": "RTSP stream URL",
+            "username": "Camera username",
+            "password": "Camera password",
+            "transport": "RTSP transport",
+            "mode": "Recording mode"
+          },
+          "data_description": {
+            "stream_url": "For example rtsp://192.168.1.20:554/Preview_01_sub. Use the camera's H.264 sub stream. Credentials pasted into the URL are moved into the fields below.",
+            "password": "Only if the camera needs a login that isn't already in the URL."
+          }
+        },
+        "reconfigure": {
+          "title": "Edit camera",
+          "data": {
+            "name": "Name",
+            "stream_url": "RTSP stream URL",
+            "username": "Camera username",
+            "password": "Camera password",
+            "transport": "RTSP transport",
+            "mode": "Recording mode"
+          },
+          "data_description": {
+            "stream_url": "For example rtsp://192.168.1.20:554/Preview_01_sub. Use the camera's H.264 sub stream. Credentials pasted into the URL are moved into the fields below.",
+            "password": "Leave empty to keep the current password."
+          }
+        }
+      },
+      "error": {
+        "invalid_stream_url": "Enter an rtsp:// or rtsps:// URL with a host.",
+        "name_required": "Enter a name.",
+        "not_ready": "The Camera Hub isn't registered with Ezlo yet; try again shortly.",
+        "cannot_connect": "The Camera Hub engine didn't accept the camera."
+      },
+      "abort": {
+        "reconfigure_successful": "The camera was updated."
+      }
+    }
+  },
+  "selector": {
+    "transport": {
+      "options": {
+        "auto": "Automatic",
+        "tcp": "TCP",
+        "udp": "UDP"
+      }
+    },
+    "mode": {
+      "options": {
+        "continuous": "Continuous",
+        "motion": "Motion"
+      }
+    }
+  },
+  "issues": {
+    "engine_crashing": {
+      "title": "The Camera Hub engine keeps stopping",
+      "description": "The Camera Hub engine has stopped several times in a row and is being restarted. Last error: {error}"
+    }
+  }
+}
